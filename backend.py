@@ -1,17 +1,21 @@
 import requests
-import taipy as tp
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
+BASEDIR = os.path.abspath(os.path.dirname(__file__))
+
+load_dotenv(os.path.join(BASEDIR, '.env'))
 
 # You can use your API_KEY from "https://api-ninjas.com/profile"
-API_KEY = os.getenv("API_KEY")
+API_KEY = os.getenv("OG_API_KEY")
 print(API_KEY)
 
 query = ""
 
 def get_api_response(query, api_key=API_KEY):
+    
+    print("\n I'm at API response")
+    
     api_url = f'https://api.api-ninjas.com/v1/nutrition?query={query}'
     
     headers = {
@@ -27,6 +31,8 @@ def get_api_response(query, api_key=API_KEY):
         return None
         
 def get_names_of_meal(json_file):
+    
+    print("\n I'm at name of meals")
     
     try:
         names = []
@@ -49,22 +55,25 @@ def get_total_info(json_file):
     (6) total carbs
     """
     
-    total_dict = {
-        "calories": 0.0,
-        "fat": 0.0,
-        "protein": 0.0,
-        "sugar" : 0.0,
-        "fiber": 0.0,
-        "carbs": 0.0
-    }
+    print("\n I'm at get info and stuff")
     
+    total_dict = {
+        "Calories": 0.0,
+        "Fat": 0.0,
+        "Protein": 0.0,
+        "Sugar": 0.0,
+        "Fiber": 0.0,
+        "Carbs": 0.0
+    }
+
+    # Your existing code to populate the dictionary
     for item in json_file:
-        total_dict["calories"] += item["calories"]
-        total_dict["fat"] += item["fat_total_g"]
-        total_dict["protein"] += item["protein_g"]
-        total_dict["sugar"] += item["sugar_g"]
-        total_dict["fiber"] += item["fiber_g"]
-        total_dict["carbs"] += item["carbohydrates_total_g"]
+        total_dict["Calories"] += item["calories"]
+        total_dict["Fat"] += item["fat_total_g"]
+        total_dict["Protein"] += item["protein_g"]
+        total_dict["Sugar"] += item["sugar_g"]
+        total_dict["Fiber"] += item["fiber_g"]
+        total_dict["Carbs"] += item["carbohydrates_total_g"]
         
     total_dict = {k: round(v, 1) for k, v in total_dict.items()}
     
