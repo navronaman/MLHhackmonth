@@ -1,9 +1,12 @@
 from taipy.gui import Gui, State
+from taipy.gui import Html
 from backend import (
     get_api_response,
     get_names_of_meal,
     get_total_info
 )
+from frontend import stats
+
 
 
 page = """
@@ -22,6 +25,12 @@ Here is the nutrition data for your meal today:
 <|{nutrition}|>
 
 """
+
+pages= {
+    'home_page': page,
+    'stats_page': Html(stats.html_string)
+}
+stats_page = Html(stats.html_string)
 
 def get_items(query):
     
@@ -64,4 +73,4 @@ items = get_items(query)
 nutrition = get_nutrition(query)     
 
 
-Gui(page=page).run(dark_mode=True)
+Gui(pages = pages).run(dark_mode=True, port = 5001)
