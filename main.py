@@ -24,9 +24,12 @@ Here are the items you ordered:
 <br/>
 
 Here is the nutrition data for your meal today:
+<br/>
 <|{nutrition}|>
 
+<br/>
 Here is the total nutrition data for your entire day:
+<br/>
 <|{nutrition_daily}|>
 
 """
@@ -71,12 +74,14 @@ def total_nutrition_calc(api_rep):
         if key in total_dict_daily:
             total_dict_daily[key] += value
             
+    total_dict_daily = {k: round(v, 1) for k, v in total_dict_daily.items()}
+            
     return_text = ""
     for key, value in total_dict_daily.items():
         if key == "Calories":
-            return_text += f"{key}: {value} cal \n"
+            return_text += f"{key}: {value} cal "
         else:
-            return_text += f"{key}: {value} grams \n"
+            return_text += f"{key}: {value} grams "
             
     return return_text
         
@@ -90,9 +95,9 @@ def get_nutrition(api_rep):
     return_text = ""
     for key, value in dict_of_n.items():
         if key == "Calories":
-            return_text += f"{key}: {value} cal \n"
+            return_text += f"{key}: {value} cal "
         else:
-            return_text += f"{key}: {value} grams \n"
+            return_text += f"{key}: {value} grams "
             
     return return_text
 
@@ -107,7 +112,7 @@ def meal_button_press(state):
     state.nutrition_daily = total_nutrition_calc(api_rep)    
     
    
-query = "French Fries"
+query = ""
 items = get_items(get_api_response(query))
 nutrition = get_nutrition(get_api_response(query))
 nutrition_daily = total_nutrition_calc(get_api_response(query))     
