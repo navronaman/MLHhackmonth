@@ -1,13 +1,18 @@
 total_calories = 1000
 calorie_counter = 100
-total_carbs=100
-carbs_counter =30
-total_sugar=100
+
+total_carbs = 100
+carbs_counter = 30
+
+total_sugar = 100
 sugar_counter = 10
+
 total_fat = 100
 fat_counter = 30
+
 total_fiber = 70
 fiber_counter = 40
+
 calorie_percentage = round(calorie_counter/total_calories*100)
 sugar_percentage = round(sugar_counter/total_sugar*100)
 carbs_percentage = round(carbs_counter/total_carbs*100)
