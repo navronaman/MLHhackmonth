@@ -1,30 +1,31 @@
 from taipy.gui import Gui, State
 
-def html_page_stats(state, total_dict_daily):
+def stats_items_changes(state, total_dict_daily):
     
-    calorie_counter = total_dict_daily["Calories"]
-    carbs_counter = total_dict_daily["Carbs"]
-    sugar_counter =  total_dict_daily["Sugar"]
-    fat_counter =  total_dict_daily["Fat"]
-    fiber_counter =  total_dict_daily["Fiber"]
+    state.calorie_counter = total_dict_daily["Calories"]
+    state.carbs_counter = total_dict_daily["Carbs"]
+    state.sugar_counter = total_dict_daily["Sugar"]
+    state.fat_counter = total_dict_daily["Fat"]
+    state.fiber_counter = total_dict_daily["Fiber"]
     
-    total_calories = 1000
-    total_carbs=100
-    total_sugar=100
-    total_fat = 100
-    total_fiber = 70
+    state.total_calories = 2000
+    state.total_carbs = 100
+    state.total_sugar = 100
+    state.total_fat = 100
+    state.total_fiber = 70
     
-    calorie_percentage = round(calorie_counter/total_calories*100)
-    sugar_percentage = round(sugar_counter/total_sugar*100)
-    carbs_percentage = round(carbs_counter/total_carbs*100)
-    fat_percentage = round(fat_counter/total_fat*100)
-    fiber_percentage = round(fiber_counter/total_fiber*100)
-    
-    calories_remaining = total_calories-calorie_counter
-    sugar_remaining = total_sugar-sugar_counter
-    carbs_remaining = total_carbs-carbs_counter
-    fat_remaining = total_fat-fat_counter
-    fiber_remaining = total_fiber-fiber_counter
+    state.calorie_percentage = round(state.calorie_counter / state.total_calories * 100)
+    state.sugar_percentage = round(state.sugar_counter / state.total_sugar * 100)
+    state.carbs_percentage = round(state.carbs_counter / state.total_carbs * 100)
+    state.fat_percentage = round(state.fat_counter / state.total_fat * 100)
+    state.fiber_percentage = round(state.fiber_counter / state.total_fiber * 100)
+
+    state.calories_remaining = state.total_calories - state.calorie_counter
+    state.sugar_remaining = state.total_sugar - state.sugar_counter
+    state.carbs_remaining = state.total_carbs - state.carbs_counter
+    state.fat_remaining = state.total_fat - state.fat_counter
+    state.fiber_remaining = state.total_fiber - state.fiber_counter
+
     
 html_string_stats_0 = '''
 <section class = "MainCalorie" id="Calories">

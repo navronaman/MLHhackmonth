@@ -6,7 +6,7 @@ from backend import (
     get_total_info
 )
 from frontend import stats
-from frontend.html_pages import html_page_stats, html_string_stats_0
+from frontend.html_pages import stats_items_changes, html_string_stats_0
 
 meal_enter_btn = "ENTER YOUR MEAL"
 
@@ -101,11 +101,10 @@ def different_inputs():
     global total_dict_daily
     
     return total_dict_daily["Calories"], total_dict_daily["Carbs"], total_dict_daily["Sugar"], total_dict_daily["Fat"], total_dict_daily["Fiber"]   
-
-def stats_items_changes():
     
-
 def meal_button_press(state):
+    
+    global total_dict_daily
     
     print(f"\n I'm at meal button press. ")
     
@@ -115,16 +114,37 @@ def meal_button_press(state):
     state.nutrition = get_nutrition(api_rep)
     state.nutrition_daily = total_nutrition_calc(api_rep)
     
-    stats_items_changes(state)
-    
-
-    
+    stats_items_changes(state, total_dict_daily)    
     
    
 query = ""
 items = get_items(get_api_response(query))
 nutrition = get_nutrition(get_api_response(query))
 nutrition_daily = total_nutrition_calc(get_api_response(query))     
+
+calorie_counter = 0
+carbs_counter = 0
+sugar_counter = 0
+fat_counter = 0
+fiber_counter = 0
+
+total_calories = 2000
+total_carbs = 100
+total_sugar = 100
+total_fat = 100
+total_fiber = 70
+
+calorie_percentage = 0
+sugar_percentage = 0
+carbs_percentage = 0
+fat_percentage = 0
+fiber_percentage = 0
+
+calories_remaining = 0
+sugar_remaining = 0
+carbs_remaining = 0
+fat_remaining = 0
+fiber_remaining = 0
 
 
 pages= {
@@ -133,4 +153,4 @@ pages= {
 }
 
 
-Gui(pages = pages).run(dark_mode=True, port = 5001)
+Gui(pages = pages, css_file='stats.css').run(dark_mode=True, port = 5001)
