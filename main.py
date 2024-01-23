@@ -6,9 +6,24 @@ from backend import (
     get_total_info
 )
 from frontend import stats
+from datetime import datetime
+from datetime import date
+from pytz import timezone
+import time
+import importlib
 
 
-
+''' All the modifiable variables for stats'''
+total_calories=100
+calorie_counter=0
+total_carbs=100
+carbs_counter=0
+total_sugar=100
+sugar_counter=0 
+total_fat=100
+fat_counter=0 
+total_fiber=100
+fiber_counter=0
 page = """
 #Hey, Welcome to Dhruv, Liz, Naman and Pooja's Web App
 <br/>
@@ -26,11 +41,12 @@ Here is the nutrition data for your meal today:
 
 """
 
+importlib.reload(stats);
+
 pages= {
     'home_page': page,
-    'stats_page': Html(stats.html_string)
+    'stats_page': Html(stats.CalorieStats(total_calories, calorie_counter, total_carbs, carbs_counter, total_sugar, sugar_counter, total_fat, fat_counter, total_fiber, fiber_counter))
 }
-stats_page = Html(stats.html_string)
 
 def get_items(query):
     
@@ -67,10 +83,16 @@ def on_change(state, var_name, var_value):
         state.items = get_items(var_value)
         state.nutrition = get_nutrition(var_value)
     
-   
+
 query = "French Fries"
 items = get_items(query)
 nutrition = get_nutrition(query)     
 
 
-Gui(pages = pages).run(dark_mode=True, port = 5001)
+current_time = datetime.now(timezone('US/Eastern'))
+format = "%H:%M:%S"
+ct_string = current_time.strftime(format)
+ct_hour = current_time.strftime("%H")
+
+Gui(page = pages['stats_page']).run(dark_mode=True, port = 5001)
+time.sleep(20)
