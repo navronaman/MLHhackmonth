@@ -1,32 +1,40 @@
-total_calories = 1000
-calorie_counter = 100
+from taipy.gui import Gui, State
 
-total_carbs = 100
-carbs_counter = 30
+def stats_items_changes(state, total_dict_daily):
+    
+    state.calorie_counter = total_dict_daily["Calories"]
+    state.carbs_counter = total_dict_daily["Carbs"]
+    state.sugar_counter = total_dict_daily["Sugar"]
+    state.fat_counter = total_dict_daily["Fat"]
+    state.fiber_counter = total_dict_daily["Fiber"]
+    
+    state.total_calories = 2000
+    state.total_carbs = 100
+    state.total_sugar = 100
+    state.total_fat = 100
+    state.total_fiber = 70
+    
+    state.calorie_percentage = round(state.calorie_counter / state.total_calories * 100)
+    state.sugar_percentage = round(state.sugar_counter / state.total_sugar * 100)
+    state.carbs_percentage = round(state.carbs_counter / state.total_carbs * 100)
+    state.fat_percentage = round(state.fat_counter / state.total_fat * 100)
+    state.fiber_percentage = round(state.fiber_counter / state.total_fiber * 100)
 
-total_sugar = 100
-sugar_counter = 10
+    state.calories_remaining = state.total_calories - state.calorie_counter
+    state.sugar_remaining = state.total_sugar - state.sugar_counter
+    state.carbs_remaining = state.total_carbs - state.carbs_counter
+    state.fat_remaining = state.total_fat - state.fat_counter
+    state.fiber_remaining = state.total_fiber - state.fiber_counter
 
-total_fat = 100
-fat_counter = 30
-
-total_fiber = 70
-fiber_counter = 40
-
-calorie_percentage = round(calorie_counter/total_calories*100)
-sugar_percentage = round(sugar_counter/total_sugar*100)
-carbs_percentage = round(carbs_counter/total_carbs*100)
-fat_percentage = round(fat_counter/total_fat*100)
-fiber_percentage = round(fiber_counter/total_fiber*100)
-
-html_string = '''
+    
+html_string_stats_0 = '''
 <section class = "MainCalorie" id="Calories">
             <h2>Daily Calorie Intake</h2>
             <div class = "container">
-                <div class = "calorie"> '''+ str(calorie_percentage)+ '''%</div>
+                <div class = "calorie"> <taipy:text> {calorie_percentage} </taipy:text> %</div>
             </div>
-            <h3> Calorie Limit: '''+str(total_calories)+'''</h3>
-            <h4> Calories Remaining: '''+str(total_calories-calorie_counter)+'''</h4>
+            <h3> Calorie Limit: {total_calories} </h3>
+            <h4> Calories Remaining: {calories_remaining} </h4>
         </section>
         <style>
             .MainCalorie h2{
@@ -51,7 +59,7 @@ html_string = '''
                 font-size: 20px; 
                 border-radius: 15px; 
                 background-color: rgb(0, 0, 256); 
-                width: ''' + str(calorie_percentage)+ '''%;
+                width: {calorie_percentage}%;
             }
         </style>
 <title> Other Metrics </title>
@@ -69,7 +77,7 @@ html_string = '''
             }
             .circProgressSugar::before {
                 color: rgb(0,0,256);
-                content: "'''+str(sugar_percentage)+'''% \A Total Sugars: '''+str(total_sugar)+'''g \A Sugar Remaining: '''+str(total_sugar-sugar_counter)+'''g";
+                content: "{sugar_percentage}% \A Total Sugars: {total_sugar}g \A Sugar Remaining: {sugar_remaining}g";
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -90,12 +98,12 @@ html_string = '''
                 height: 200px;
                 border-radius: 50%;
                 background: 
-                  radial-gradient(closest-side, rgb(255, 255, 255) 79%, transparent 80% 100%),
-                  conic-gradient(blue '''+str(sugar_percentage)+'''%, grey 0);    
-              }
-              .circProgressCarbs::before {
+                radial-gradient(closest-side, rgb(255, 255, 255) 79%, transparent 80% 100%),
+                conic-gradient(blue {sugar_percentage}%, grey 0);    
+            }
+            .circProgressCarbs::before {
                 color: rgb(0,0,256);
-                content: "'''+str(carbs_percentage)+'''% \A Total Carbs: '''+str(total_carbs)+'''g \A Sugar Remaining: '''+str(total_carbs-carbs_counter)+'''g";
+                content: "{carbs_percentage}% \A Total Carbs: {total_carbs}g \A Sugar Remaining: {carbs_remaining}g";
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -105,7 +113,7 @@ html_string = '''
                 white-space: pre;
                 font-size: 14px;
             }
-              .circProgressCarbs {
+            .circProgressCarbs {
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -115,12 +123,12 @@ html_string = '''
                 height: 200px;
                 border-radius: 50%;
                 background: 
-                  radial-gradient(closest-side, rgb(255, 255, 255) 79%, transparent 80% 100%),
-                  conic-gradient(blue '''+str(carbs_percentage)+'''%, grey 0);    
-              }
-              .circProgressFiber::before {
+                radial-gradient(closest-side, rgb(255, 255, 255) 79%, transparent 80% 100%),
+                conic-gradient(blue {carbs_percentage}%, grey 0);    
+            }
+            .circProgressFiber::before {
                 color: rgb(0,0,256);
-                content: "'''+str(fiber_percentage)+'''% \A Total Fibers: '''+str(total_fiber)+'''g \A Fiber Remaining: '''+str(total_fiber-fiber_counter)+'''g";
+                content: "{fiber_percentage}% \A Total Fibers: {total_fiber}g \A Fiber Remaining: {fiber_remaining}g";
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -130,7 +138,7 @@ html_string = '''
                 white-space: pre;
                 font-size: 14px;
             }
-              .circProgressFiber {
+            .circProgressFiber {
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -140,12 +148,12 @@ html_string = '''
                 height: 200px;
                 border-radius: 50%;
                 background: 
-                  radial-gradient(closest-side, rgb(255, 255, 255) 79%, transparent 80% 100%),
-                  conic-gradient(blue '''+str(fiber_percentage)+'''%, grey 0);    
-              }
-              .circProgressFat::before {
+                radial-gradient(closest-side, rgb(255, 255, 255) 79%, transparent 80% 100%),
+                conic-gradient(blue {fiber_percentage}%, grey 0);    
+            }
+            .circProgressFat::before {
                 color: rgb(0,0,256);
-                content: "'''+str(fat_percentage)+'''% \A Total Fat: '''+str(total_fat)+'''g \A Sugar Remaining: '''+str(total_fat-fat_counter)+'''g";
+                content: "{fat_percentage}% \A Total Fat: {total_fat}g \A Sugar Remaining: {fat_remaining}g";
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -155,7 +163,7 @@ html_string = '''
                 white-space: pre;
                 font-size: 14px;
             }
-              .circProgressFat {
+            .circProgressFat {
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -165,12 +173,12 @@ html_string = '''
                 height: 200px;
                 border-radius: 50%;
                 background: 
-                  radial-gradient(closest-side, rgb(255, 255, 255) 79%, transparent 80% 100%),
-                  conic-gradient(blue '''+str(fat_percentage)+'''%, grey 0);    
-              }
-              .quadrant h2{
+                radial-gradient(closest-side, rgb(255, 255, 255) 79%, transparent 80% 100%),
+                conic-gradient(blue {fat_percentage}%, grey 0);    
+            }
+            .quadrant h2{
                 margin-left: 20%;
-              }
+            }
         </style>
         <section id="gridSection">
             <div class="quadrant">
@@ -199,3 +207,10 @@ html_string = '''
                 </div>
                 </div>
         </section>'''
+
+
+
+    
+    
+
+
