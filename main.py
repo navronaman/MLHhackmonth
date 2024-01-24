@@ -6,9 +6,17 @@ from backend import (
     get_total_info
 )
 
+from frontend import stats
+from datetime import datetime
+from datetime import date
+from pytz import timezone
+import time
+import importlib
+
+
 meal_enter_btn = "ENTER YOUR MEAL"
 
-page = Markdown("""
+
 #Hey, Welcome to Dhruv, Liz, Naman and Pooja's Web App
 <br/>
 <|{query}|input|>
@@ -51,6 +59,7 @@ html_string_stats_0 = Html('''
 </section>
 </div>
 ''')
+
 
 
 def get_items(api_rep):
@@ -115,6 +124,7 @@ def total_nutrition_calc(api_rep):
         
 def different_inputs():
     
+
     global total_dict_daily
     
     return total_dict_daily["Calories"], total_dict_daily["Carbs"], total_dict_daily["Sugar"], total_dict_daily["Fat"], total_dict_daily["Fiber"]   
@@ -198,3 +208,4 @@ pages= {
 
 
 Gui(pages = pages, css_file='stats.css').run(dark_mode=True, port = 5001)
+
