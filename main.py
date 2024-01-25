@@ -17,6 +17,7 @@ import importlib
 meal_enter_btn = "ENTER YOUR MEAL"
 
 
+page=("""
 #Hey, Welcome to Dhruv, Liz, Naman and Pooja's Web App
 <br/>
 <|{query}|input|>
