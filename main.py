@@ -6,7 +6,7 @@ from backend import (
     get_total_info
 )
 
-from frontend import stats
+from frontend import html_pages
 from datetime import datetime
 from datetime import date
 from pytz import timezone
@@ -42,24 +42,7 @@ Here are the items you ordered:
 
 """)
 
-html_string_stats_0 = Html('''
-<div>
-<section>
-    <h2>Daily Calorie Intake</h2>
-        <div>
-            <div> <taipy:text> {calorie_percentage} </taipy:text> </div>
-        </div>
-    <h2>Calorie Intake</h2>
-        <div>
-            <div> <taipy:text> {total_calories} </taipy:text> </div>
-        </div>
-    <h2>Calories Remaining</h2>
-        <div>
-            <div> <taipy:text> {calories_remaining} </taipy:text> </div>
-        </div>
-</section>
-</div>
-''')
+html_string_stats_0 = Html(html_pages.return_html_stats())
 
 
 
