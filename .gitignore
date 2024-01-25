@@ -1,3 +1,6 @@
 .env
 .venv
+.vscode
+hidden.py
 __pycache__
+frontend/__pycache__
