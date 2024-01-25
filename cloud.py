@@ -23,12 +23,17 @@ def inti_cloud():
 
     ref = db.reference("Trial")
     date_ref = ref.child("Hello")
+    
+    dict_to_add = {
+        "meal items": ["sandwitch", "samosa"],
+        "calories": 0,
+        "fibres": 0,
+        "fats": 0
+    }
 
 
     date_ref.set({
-        "User entered a meal at this time": {
-            "meal_items": "french_fries",
-        }
+        "User entered a meal at this time": dict_to_add
     })
 
 

@@ -79,7 +79,12 @@ def get_total_info(json_file):
     
     return total_dict
     
-            
+def cloud_dict(json_file):
+    return {
+        "Meal Items": get_names_of_meal(json_file),
+        "Nutrition Info": get_total_info(json_file)
+    }
+    
     
     
 
@@ -91,3 +96,4 @@ if __name__ == "__main__":
     print(json_file)
     print(get_names_of_meal(json_file=json_file))
     print(get_total_info(json_file=json_file))
+    print(cloud_dict(json_file))
