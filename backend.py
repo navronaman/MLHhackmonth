@@ -1,6 +1,8 @@
 import requests
 from dotenv import load_dotenv
 import os
+from datetime import datetime
+
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
@@ -79,13 +81,23 @@ def get_total_info(json_file):
     
     return total_dict
     
-def cloud_dict(json_file):
+def get_cloud_dict(json_file):
+    
+    current_time = datetime.now()
+
     return {
+        "Nutrition Info": get_total_info(json_file),
         "Meal Items": get_names_of_meal(json_file),
-        "Nutrition Info": get_total_info(json_file)
+        "Time of Input": format_time(current_time)
     }
     
+def format_time(current_time):
+    # Format the date and time
+    formatted_date_time = current_time.strftime("%m/%d/%Y %I:%M:%S %p")
     
+    return formatted_date_time
+
+
     
 
 if __name__ == "__main__":
@@ -96,4 +108,4 @@ if __name__ == "__main__":
     print(json_file)
     print(get_names_of_meal(json_file=json_file))
     print(get_total_info(json_file=json_file))
-    print(cloud_dict(json_file))
+    print(get_cloud_dict(json_file))

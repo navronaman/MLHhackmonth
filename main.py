@@ -150,9 +150,8 @@ def meal_button_press(state):
     # Cloud
     cloud_dict_of_meal = get_cloud_dict(api_rep)
     
-    current_time = datetime.now()
     
-    inti_cloud(cloud_dict_of_meal, current_time)
+    inti_cloud(cloud_dict_of_meal)
         
     # Updating stats page
     stats_items_changes(state, total_dict_daily) 

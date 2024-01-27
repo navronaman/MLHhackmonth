@@ -13,27 +13,27 @@ firebase_admin.initialize_app(cred, {
     "storageBucket": "calories-tracker-aade3.appspot.com"
 })
 
+def format_time2(current_time):
+    # Format the date and time
+    formatted_date_time = current_time.strftime("%m_%d_%Y %I_%M_%S %p")
+    
+    return formatted_date_time
 
 
-today_date = datetime.now()
-print(today_date)
 
-def inti_cloud():
+def inti_cloud(cloud_dict_of_meal):
     print("Cloud integration started")
 
+    today_date = datetime.now()
+
+
     ref = db.reference("Trial")
-    date_ref = ref.child("Hello")
+    date_ref = ref.child(today_date.strftime("%B %d, %Y"))
+
+
     
-    dict_to_add = {
-        "meal items": ["sandwitch", "samosa"],
-        "calories": 0,
-        "fibres": 0,
-        "fats": 0
-    }
-
-
     date_ref.set({
-        "User entered a meal at this time": dict_to_add
+        f"Meal at {format_time2(today_date)}": cloud_dict_of_meal
     })
 
 
