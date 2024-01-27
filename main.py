@@ -50,7 +50,7 @@ Here are the items you ordered:
 
 # Stats Page
 html_string_stats_0 = Html('''
-<div>
+<div class="divbhai">
 <section>
     <h2>Daily Calorie Intake</h2>
         <div>
