@@ -21,22 +21,17 @@ def format_time2(current_time):
 
 
 
-def inti_cloud(cloud_dict_of_meal):
+def inti_cloud(cloud_dict_of_meal, username):
     print("Cloud integration started")
 
     today_date = datetime.now()
 
 
-    ref = db.reference("Trial")
+    ref = db.reference(username)
     date_ref = ref.child(today_date.strftime("%B %d, %Y"))
-
-
     
-    date_ref.set({
-        f"Meal at {format_time2(today_date)}": cloud_dict_of_meal
-    })
-
-
+    meal_ref = date_ref.child(f"Meal at {format_time2(today_date)}")
+    meal_ref.set(cloud_dict_of_meal)
     print(ref.get())
 
 if __name__ == "__main__":

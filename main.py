@@ -19,13 +19,20 @@ from pytz import timezone
 import time
 import importlib
 
-# This is content of the button
+# This is content of the buttons
 meal_enter_btn = "ENTER YOUR MEAL"
+username_enter_btn = "ENTER YOUR USERNAME"
 
 # Home Page
 page=("""
 #Hey, Welcome to Dhruv, Liz, Naman and Pooja's Web App
 <br/>
+
+<|{query_0}|input|>
+
+<|{username_enter_btn}|button|on_action=username_button_press|>
+<br/>
+
 <|{query}|input|>
 
 <|{meal_enter_btn}|button|on_action=meal_button_press|>
@@ -133,6 +140,15 @@ def total_nutrition_calc(api_rep):
             
     return return_text
         
+def username_button_press(state):
+    
+    global query_0
+    
+    print(f"\n I'm at username button press. ")
+    
+    query_0 = state.query_0
+    print(f"\n I'm the current query {query_0}")
+    
 # Function #1 when the state changes (user presses the button)    
 def meal_button_press(state):
     
@@ -150,8 +166,8 @@ def meal_button_press(state):
     # Cloud
     cloud_dict_of_meal = get_cloud_dict(api_rep)
     
-    
-    inti_cloud(cloud_dict_of_meal)
+    if cloud_dict_of_meal["Nutrition Info"]["Calories"] != 0.0:
+        inti_cloud(cloud_dict_of_meal, query_0)
         
     # Updating stats page
     stats_items_changes(state, total_dict_daily) 
@@ -186,6 +202,7 @@ def stats_items_changes(state, total_dict_daily):
     
    
 # Default values for all the assignments
+query_0 = ""
 query = ""
 items = get_items(get_api_response(query))
 nutrition = get_nutrition(get_api_response(query))
