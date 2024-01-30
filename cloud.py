@@ -33,7 +33,16 @@ def inti_cloud(cloud_dict_of_meal, username):
     meal_ref = date_ref.child(f"Meal at {format_time2(today_date)}")
     meal_ref.set(cloud_dict_of_meal)
     print(ref.get())
+    
+    
+def get_data(username):
+    ref = db.reference(username)
+    return ref.get()
 
 if __name__ == "__main__":
+    
+    api_rep = get_data("navronaman")
+    print(api_rep)
+    
     inti_cloud()
 
