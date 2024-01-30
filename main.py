@@ -55,6 +55,32 @@ Here are the items you ordered:
 
 """)
 
+# Same page in HTML
+page_but_html = Html('''
+<h1>Hey, Welcome to Dhruv, Liz, Naman and Pooja's Web App</h1>
+
+<taipy:input>{query_0}</taipy:input>
+
+<taipy:button on_action="username_button_press">{username_enter_btn}</taipy:button>
+
+<taipy:input>{query}</taipy:input>
+<taipy:button on_action="meal_button_press">{meal_enter_btn}</taipy:button>
+
+<p>Here are the items you ordered:
+<taipy:text>{items}</taipy:text>
+</p>
+
+<p>Here is the nutrition data for your meal today:
+<taipy:text>{nutrition_daily}</taipy:text>
+</p>
+                    
+<p>Here is the nutrition data for your entire day:
+<taipy:text>{nutrition}</taipy:text>
+</p>
+                    
+                     
+''')
+
 # Stats Page
 html_string_stats_0 = Html('''
 <div class="divbhai">
@@ -235,7 +261,7 @@ fiber_remaining = 0
 
 # Stores the HTML pages in a string for Taipy
 pages= {
-    'home_page': page,
+    'home_page': page_but_html,
     'stats_page': html_string_stats_0
 }
 
