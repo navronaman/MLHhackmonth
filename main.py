@@ -14,7 +14,6 @@ from backend import (
 from cloud import inti_cloud
 # For other components
 from datetime import datetime, date
-=======
 from frontend import html_pages
 from datetime import datetime
 from datetime import date
