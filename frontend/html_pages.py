@@ -26,187 +26,118 @@ def stats_items_changes(state, total_dict_daily):
     state.fat_remaining = state.total_fat - state.fat_counter
     state.fiber_remaining = state.total_fiber - state.fiber_counter
 
-    
-html_string_stats_0 = '''
-<section class = "MainCalorie" id="Calories">
-            <h2>Daily Calorie Intake</h2>
-            <div class = "container">
-                <div class = "calorie"> <taipy:text> {calorie_percentage} </taipy:text> %</div>
-            </div>
-            <h3> Calorie Limit: {total_calories} </h3>
-            <h4> Calories Remaining: {calories_remaining} </h4>
-        </section>
-        <style>
-            .MainCalorie h2{
-                text-align: center;
-            }
-            .MainCalorie h3{
-                text-align: center;
-            }
-            .MainCalorie h4{
-                text-align: center;
-                color: rgb(256,0,0);
-            }
-            .container{
-                background-color: rgb(192, 192, 192); 
-                width: 80%; 
-                border-radius: 15px; 
-            }
-            .calorie{
-                color: white; 
-                padding: 1%; 
-                text-align: right; 
-                font-size: 20px; 
-                border-radius: 15px; 
-                background-color: rgb(0, 0, 256); 
-                width: {calorie_percentage}%;
-            }
-        </style>
-<title> Other Metrics </title>
-        <style>
-            #gridSection {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                grid-template-rows: repeat(2, 1fr);
-                gap: 10px;
-                height: 500px; 
-            }
-            .quadrant {
-                padding: 20px;  
-                text-align: center;
-            }
-            .circProgressSugar::before {
-                color: rgb(0,0,256);
-                content: "{sugar_percentage}% \A Total Sugars: {total_sugar}g \A Sugar Remaining: {sugar_remaining}g";
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                position: absolute;
-                width:200px;
-                height: 200px;
-                white-space: pre;
-                font-size: 14px;
-            }
-            .circProgressSugar {
-                position: relative;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-left: 50%;
-                margin-top: 10%;
-                width: 200px;
-                height: 200px;
-                border-radius: 50%;
-                background: 
-                radial-gradient(closest-side, rgb(255, 255, 255) 79%, transparent 80% 100%),
-                conic-gradient(blue {sugar_percentage}%, grey 0);    
-            }
-            .circProgressCarbs::before {
-                color: rgb(0,0,256);
-                content: "{carbs_percentage}% \A Total Carbs: {total_carbs}g \A Sugar Remaining: {carbs_remaining}g";
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                position: absolute;
-                width:200px;
-                height: 200px;
-                white-space: pre;
-                font-size: 14px;
-            }
-            .circProgressCarbs {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-left: 50%;
-                margin-top: 50px;
-                width: 200px;
-                height: 200px;
-                border-radius: 50%;
-                background: 
-                radial-gradient(closest-side, rgb(255, 255, 255) 79%, transparent 80% 100%),
-                conic-gradient(blue {carbs_percentage}%, grey 0);    
-            }
-            .circProgressFiber::before {
-                color: rgb(0,0,256);
-                content: "{fiber_percentage}% \A Total Fibers: {total_fiber}g \A Fiber Remaining: {fiber_remaining}g";
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                position: absolute;
-                width:200px;
-                height: 200px;
-                white-space: pre;
-                font-size: 14px;
-            }
-            .circProgressFiber {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-left: 50%;
-                margin-top: 50px;
-                width: 200px;
-                height: 200px;
-                border-radius: 50%;
-                background: 
-                radial-gradient(closest-side, rgb(255, 255, 255) 79%, transparent 80% 100%),
-                conic-gradient(blue {fiber_percentage}%, grey 0);    
-            }
-            .circProgressFat::before {
-                color: rgb(0,0,256);
-                content: "{fat_percentage}% \A Total Fat: {total_fat}g \A Sugar Remaining: {fat_remaining}g";
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                position: absolute;
-                width:200px;
-                height: 200px;
-                white-space: pre;
-                font-size: 14px;
-            }
-            .circProgressFat {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-left: 50%;
-                margin-top: 50px;
-                width: 200px;
-                height: 200px;
-                border-radius: 50%;
-                background: 
-                radial-gradient(closest-side, rgb(255, 255, 255) 79%, transparent 80% 100%),
-                conic-gradient(blue {fat_percentage}%, grey 0);    
-            }
-            .quadrant h2{
-                margin-left: 20%;
-            }
-        </style>
-        <section id="gridSection">
-            <div class="quadrant">
-            <h2> Sugar </h2>
-                <div class = "circProgressSugar">
-                    <progress value = "30" min ="0" max = "100" style="visibility:hidden;height:0;width:0;"></progress>
+def return_html_stats():
+    html_string_stats_0 = '''
+    <div>
+    <section>
+        <h2>Daily Calorie Intake</h2>
+            <div>
+                <div>  
+                <taipy:indicator class_name = "calorie_bar" min = "0" max = "{total_calories}" value = "{calorie_counter}" width ="90vw"> Calories: {calorie_counter}</taipy:indicator>
                 </div>
             </div>
-            <div class="quadrant">
-            <h2> Carbs </h2>
-            <div class = "circProgressCarbs">
-                    <progress value = "70" min ="0" max = "100" style="visibility:hidden;height:0;width:0;"></progress>
-                    
+            <div class = "row">
+                <div class="column">
+                    <div class="title">
+                        <span> Calorie Limit </span>
+                    </div>
+                    <div class="col_inner">
+                        <span> <taipy:text> {total_calories} </taipy:text> </span>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="title">
+                        <span> Calorie Remaining </span>
+                    </div>
+                    <div class="col_inner">
+                        <span> <taipy:text> {calorie_counter} </taipy:text> </span>
+                    </div>
                 </div>
             </div>
-            <div class="quadrant">
-            <h2> Fat </h2>
-            <div class = "circProgressFat">
-                    <progress value = "70" min ="0" max = "100" style="visibility:hidden;height:0;width:0;">30%</progress>
+            <style>
+                .column {
+                    float: left;
+                    width: 50%;
+                    padding: 10px;
+                    justify-content:center;
+                    }
+                .row:after {
+                    display: table;
+                    clear: both;
+                }
+                row {
+                    height: 20%;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-family: 'Roboto', sans-serif;
+                    background: #efefef;
+                    overflow: hidden;
+                    margin-left: 50%;
+                }
+                .title{
+                    font-weight: 300;
+                    font-size: 14px;
+                    opacity: 0.6;
+                    color: #fff;
+                    margin-bottom: 6px;
+                }
+                .col_inner {
+                    font-size: 32px;
+                    font-weight: 300;
+                    color: #fff;
+                }
+            </style>
+            <div class="container">
+                <div class="quadrant">
+                    <div class="fat">
+                        <h2> Fats </h2>
+                        <taipy:indicator class_name = "calorie_bar" min = "0" max = "{total_fat}" value = "{fat_counter}" width ="30vw"> Fats: {fat_counter}</taipy:indicator>
+                    </div>
                 </div>
+                <div class="quadrant">
+                    <div class="sugar">
+                        <h2> Sugar </h2>
+                        <taipy:indicator class_name = "sugar_bar" min = "0" max = "{total_sugar}" value = "{sugar_counter}" width ="30vw"> Sugars: {sugar_counter}</taipy:indicator>
+                    </div>
                 </div>
-            <div class="quadrant">
-            <h2> Fiber </h2>
-            <div class = "circProgressFiber">
-                    <progress value = "70" min ="0" max = "100" style="visibility:hidden;height:0;width:0;">30%</progress>
+                <div class="quadrant">
+                    <div class="carbs">
+                    <h2> Carbs </h2>
+                        <taipy:indicator class_name = "carbs_bar" min = "0" max = "{total_carbs}" value = "{carbs_counter}" width ="30vw"> Carbs: {carbs_counter}</taipy:indicator>
+                    </div>
                 </div>
+                <div class="quadrant">
+                    <div class="fiber">
+                    <h2> Fiber </h2>
+                        <taipy:indicator class_name = "fiber_bar" min = "0" max = "{total_fiber}" value = "{fiber_counter}" width ="30vw"> Fibers: {fiber_counter}</taipy:indicator>
+                    </div>
                 </div>
-        </section>'''
+            </div>
+            <style>
+                .container{ 
+                    width:100%;
+                    height:80%;
+                    display:grid;
+                    grid-template-columns: 50% 50%;
+                    grid-row: auto auto;
+                    grid-column-gap: 20px;
+                    grid-row-gap: 20px;
+                    .quadrant{
+                        background-color: rgb(0,0,256);
+                        padding:20px;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        border-radius: 20px;
+                    }
+
+                }
+            </style>
+    </section>
+    </div>'''
+    return html_string_stats_0
 
 def return_html_home():
     html_string_stats_0 = '''
