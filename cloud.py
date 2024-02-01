@@ -5,7 +5,7 @@ from firebase_admin import db
 from firebase_admin import storage
 from datetime import datetime
 
-# Create a folder in the portal called keys, and get your serviceAccoun
+# Create a folder in the portal called keys, and get your serviceAccount
 cred = credentials.Certificate("key/serviceAccountKey.json")
 
 firebase_admin.initialize_app(cred, {
